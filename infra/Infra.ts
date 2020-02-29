@@ -44,12 +44,13 @@ class Stack extends cdk.Stack {
         stageName: "api",
       },
       binaryMediaTypes: ["*/*"],
-      defaultIntegration: new apigateway.LambdaIntegration(backendLambda, {
-        passthroughBehavior: apigateway.PassthroughBehavior.WHEN_NO_MATCH
-      })
     })
 
-    api.root.addMethod("GET")
+    api.root
+      .addResource("events.ics")
+      .addMethod("GET", new apigateway.LambdaIntegration(backendLambda, {
+        passthroughBehavior: apigateway.PassthroughBehavior.WHEN_NO_MATCH
+      }))
 
     new route53.ARecord(this, "Denssi", {
       zone: hostedZone,
