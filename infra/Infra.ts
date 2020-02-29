@@ -1,7 +1,11 @@
 import cdk = require("@aws-cdk/core")
 import lambda = require("@aws-cdk/aws-lambda")
 import route53 = require("@aws-cdk/aws-route53")
+import targets = require("@aws-cdk/aws-route53-targets")
 import apigateway = require("@aws-cdk/aws-apigateway")
+import certificatemanager = require("@aws-cdk/aws-certificatemanager")
+
+const DOMAIN_NAME = "pogo.rce.fi"
 
 async function main() {
   const env = {
@@ -19,7 +23,12 @@ class Stack extends cdk.Stack {
     super(scope, id, props)
 
     const hostedZone = new route53.PublicHostedZone(this, "HostedZone", {
-      zoneName: "pogo.rce.fi"
+      zoneName: DOMAIN_NAME,
+    })
+
+    const certificate = new certificatemanager.DnsValidatedCertificate(this, "Sertti", {
+      domainName: DOMAIN_NAME,
+      hostedZone,
     })
 
     const backendLambda = new lambda.Function(this, "BackendFunction", {
@@ -29,6 +38,7 @@ class Stack extends cdk.Stack {
     })
 
     const api = new apigateway.RestApi(this, "BackendAPI", {
+      domainName: { domainName: DOMAIN_NAME, certificate },
       deployOptions: {
         stageName: "api",
       },
@@ -39,6 +49,12 @@ class Stack extends cdk.Stack {
     })
 
     api.root.addMethod("GET")
+
+    new route53.ARecord(this, "Denssi", {
+      zone: hostedZone,
+      recordName: DOMAIN_NAME,
+      target: route53.RecordTarget.fromAlias(new targets.ApiGateway(api))
+    })
   }
 }
 
