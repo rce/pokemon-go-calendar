@@ -34,7 +34,8 @@ class Stack extends cdk.Stack {
     const backendLambda = new lambda.Function(this, "BackendFunction", {
       runtime: lambda.Runtime.NODEJS_12_X,
       handler: "index.handler",
-      code: lambda.Code.asset("./src"),
+      memorySize: 128,
+      code: lambda.Code.fromAsset("./src"),
     })
 
     const api = new apigateway.RestApi(this, "BackendAPI", {
