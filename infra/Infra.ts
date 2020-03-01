@@ -36,6 +36,7 @@ class Stack extends cdk.Stack {
       handler: "index.handler",
       memorySize: 128,
       code: lambda.Code.fromAsset("./src"),
+      environment: { CONTENT_TYPE: "text/calendar" }
     })
 
     const api = new apigateway.RestApi(this, "BackendAPI", {

@@ -1,9 +1,13 @@
 const express = require("express")
 const events = require("./events.js")
 
+const contentType = process.env.CONTENT_TYPE || "text/plain"
+
 const app = express()
 
 app.get("/events.ics", (req, res) => {
+  res.append('Content-Type', contentType)
+
   writeField(res, "BEGIN", "VCALENDAR")
   writeField(res, "VERSION", "2.0")
   writeField(res, "PRODID", "-//github.com/rce//Pokemon GO Events V1.0//EN")
