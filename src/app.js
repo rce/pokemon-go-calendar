@@ -27,7 +27,9 @@ app.get("/events.ics", (req, res) => {
 
 function writeEvent(res, event, zone) {
   const mkStamp = dt =>
-      calDateTime(dt.setZone(zone, { keepLocalTime: event.localTime }))
+    formatCalendarTimestamp(dt.setZone(zone, {
+      keepLocalTime: event.localTime
+    }))
 
   writeField(res, "BEGIN", "VEVENT")
   writeField(res, "UID", event.id)
@@ -44,9 +46,9 @@ function writeField(res, key, value) {
   res.write(key + ":" + value + "\r\n")
 }
 
-function calDateTime(original) {
-  const dt = original.toUTC()
-  return dt.toFormat("yyyyMMdd") + "T" + dt.toFormat("HHmm00") + "Z"
+function formatCalendarTimestamp(dt) {
+  const utc = dt.toUTC()
+  return utc.toFormat("yyyyMMdd") + "T" + utc.toFormat("HHmm00") + "Z"
 }
 
 module.exports = app
