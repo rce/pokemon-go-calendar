@@ -38,6 +38,13 @@ module.exports = [
     end: parseTime("2020-03-07 17:00"),
     localTime: true,
   },
+  {
+    id: "2020-abra-community-day",
+    title: "Abra Community Day",
+    start: parseTime("2020-03-15 11:00"),
+    end: parseTime("2020-03-15 14:00"),
+    localTime: true,
+  },
 ]
 
 function parseTime(text) {
