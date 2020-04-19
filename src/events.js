@@ -12,7 +12,7 @@ module.exports = [
   },
   {
     id: "incense-day-type-shuffle",
-    title: "Incense Day: Type Shuffle
+    title: "Incense Day: Type Shuffle",
     start: parseTime("2020-04-19 11:00"),
     end: parseTime("2020-04-19 17:00"),
     localTime: true,
