@@ -4,6 +4,20 @@ const pokemonGoTimeZone = IANAZone.create("UTC")
 
 module.exports = [
   {
+    id: "abra-community-day",
+    title: "Abra Community Day",
+    start: parseTime("2020-04-25 11:00"),
+    end: parseTime("2020-04-25 17:00"),
+    localTime: true,
+  },
+  {
+    id: "incense-day-type-shuffle",
+    title: "Incense Day: Type Shuffle
+    start: parseTime("2020-04-19 11:00"),
+    end: parseTime("2020-04-19 17:00"),
+    localTime: true,
+  },
+  {
     id: "pokemon-day-raid-day-2020",
     title: "Pokémon Day Raid Day 2020",
     start: parseTime("2020-03-01 14:00"),
