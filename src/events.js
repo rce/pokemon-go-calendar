@@ -59,6 +59,13 @@ module.exports = [
     end: parseTime("2020-03-15 14:00"),
     localTime: true,
   },
+  {
+    id: "2020-november-limited-research-featuring-nidoran-and-nidoran",
+    title: "November Limited Research featuring Nidoran♀ and Nidoran♂",
+    start: parseTime("2020-11-28 08:00"),
+    end: parseTime("2020-11-28 22:00"),
+    localTime: true,
+  },
 ]
 
 function parseTime(text) {
