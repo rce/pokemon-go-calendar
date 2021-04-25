@@ -5,10 +5,7 @@ repo="$( cd "$( dirname "$0" )" && pwd )"
 node_version="12"
 
 function main {
-  export AWS_PROFILE="pokemon-go-calendar-$ENV"
-  export AWS_REGION="eu-west-1"
-  export AWS_DEFAULT_REGION="$AWS_REGION"
-  AWS_ACCOUNT_ID="$(aws sts get-caller-identity --query Account --output text)"
+  setup_aws
 
   init_nodejs
 
@@ -31,6 +28,21 @@ function init_nodejs {
   fi
   source "$repo/nvm.sh"
   nvm use "$node_version" || nvm install "$node_version"
+}
+
+function setup_aws {
+  #export AWS_CONFIG_FILE="$repo/aws_config"
+  export AWS_PROFILE="pokemon-go-calendar-$ENV"
+  export AWS_REGION="eu-west-1"
+  export AWS_DEFAULT_REGION="$AWS_REGION"
+
+  aws sts get-caller-identity
+  AWS_ACCOUNT_ID="$( aws sts get-caller-identity --query Account --output text )"
+  export AWS_ACCOUNT_ID
+}
+
+function aws {
+  docker run --rm -i -e AWS_PROFILE -v ~/.aws:/root/.aws -v "$( pwd )":/aws amazon/aws-cli:2.0.6 "$@"
 }
 
 function check_env {
