@@ -2,11 +2,10 @@
 set -o errexit -o nounset -o pipefail
 repo="$( cd "$( dirname "$0" )" && pwd )"
 
-node_version="12"
+node_version="14"
 
 function main {
   setup_aws
-
   init_nodejs
 
   # Build lambda

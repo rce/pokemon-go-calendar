@@ -32,7 +32,7 @@ class Stack extends cdk.Stack {
     })
 
     const backendLambda = new lambda.Function(this, "BackendFunction", {
-      runtime: lambda.Runtime.NODEJS_12_X,
+      runtime: lambda.Runtime.NODEJS_14_X,
       handler: "index.handler",
       memorySize: 128,
       code: lambda.Code.fromAsset("./src"),
