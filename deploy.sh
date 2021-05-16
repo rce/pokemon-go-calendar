@@ -41,7 +41,16 @@ function setup_aws {
 }
 
 function aws {
-  docker run --rm -i -e AWS_CONFIG_FILE=/root/aws_config -e AWS_PROFILE -v "${repo}/aws_config:/root/aws_config" -v ~/.aws:/root/.aws -v "$( pwd )":/aws amazon/aws-cli:2.0.6 "$@"
+  docker run \
+    --env AWS_CONFIG_FILE=/root/aws_config \
+    --env AWS_PROFILE \
+    --env AWS_REGION \
+    --env AWS_DEFAULT_REGION \
+    --volume "${repo}/aws_config:/root/aws_config" \
+    --volume ~/.aws:/root/.aws \
+    --volume "$( pwd )":/aws \
+    --rm --interactive \
+    amazon/aws-cli:2.0.6 "$@"
 }
 
 function check_env {
