@@ -30,7 +30,7 @@ function init_nodejs {
 }
 
 function setup_aws {
-  #export AWS_CONFIG_FILE="$repo/aws_config"
+  export AWS_CONFIG_FILE="${repo}/aws_config"
   export AWS_PROFILE="pokemon-go-calendar-$ENV"
   export AWS_REGION="eu-west-1"
   export AWS_DEFAULT_REGION="$AWS_REGION"
@@ -41,7 +41,7 @@ function setup_aws {
 }
 
 function aws {
-  docker run --rm -i -e AWS_PROFILE -v ~/.aws:/root/.aws -v "$( pwd )":/aws amazon/aws-cli:2.0.6 "$@"
+  docker run --rm -i -e AWS_CONFIG_FILE=/root/aws_config -e AWS_PROFILE -v "${repo}/aws_config:/root/aws_config" -v ~/.aws:/root/.aws -v "$( pwd )":/aws amazon/aws-cli:2.0.6 "$@"
 }
 
 function check_env {

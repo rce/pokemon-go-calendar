@@ -1,0 +1,4 @@
+[profile pokemon-go-calendar-prod]
+console_role_switcher_url = https://signin.aws.amazon.com/switchrole?account=846314254918&roleName=OrganizationAccountAccessRole&displayName=pokemon-go-calendar-prod&color=B7CA9D
+source_profile = rce-organization
+role_arn = arn:aws:iam::846314254918:role/OrganizationAccountAccessRole
