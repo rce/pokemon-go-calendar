@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -o errexit -o nounset -o pipefail
-repo="$( cd "$( dirname "$0" )" && pwd )"
+repo="$( cd "$( dirname "$0" )" && cd .. && pwd )"
 
 node_version="14"
 
@@ -22,15 +22,15 @@ function main {
 
 function init_nodejs {
   export NVM_DIR="${NVM_DIR:-$HOME/.cache/nvm}"
-  if [ ! -f "$repo/nvm.sh" ]; then
-    curl -o "$repo/nvm.sh" "https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/nvm.sh"
+  if [ ! -f "$repo/scripts/lib/nvm.sh" ]; then
+    curl -o "$repo/scripts/lib/nvm.sh" "https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/nvm.sh"
   fi
-  source "$repo/nvm.sh"
+  source "$repo/scripts/lib/nvm.sh"
   nvm use "$node_version" || nvm install "$node_version"
 }
 
 function setup_aws {
-  export AWS_CONFIG_FILE="${repo}/aws_config"
+  export AWS_CONFIG_FILE="${repo}/scripts/lib/aws_config"
   export AWS_PROFILE="pokemon-go-calendar-$ENV"
   export AWS_REGION="eu-west-1"
   export AWS_DEFAULT_REGION="$AWS_REGION"
@@ -46,7 +46,7 @@ function aws {
     --env AWS_PROFILE \
     --env AWS_REGION \
     --env AWS_DEFAULT_REGION \
-    --volume "${repo}/aws_config:/root/aws_config" \
+    --volume "${repo}/scripts/lib/aws_config:/root/aws_config" \
     --volume ~/.aws:/root/.aws \
     --volume "$( pwd )":/aws \
     --rm --interactive \
