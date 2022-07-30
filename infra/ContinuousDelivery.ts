@@ -37,7 +37,7 @@ class GithubActionsAccessRole extends cdk.Construct {
     const githubConnectProvider = new iam.OpenIdConnectProvider(this, "OpenIdConnectProvider", {
       url: "https://token.actions.githubusercontent.com",
       clientIds: ["sts.amazonaws.com"],
-      thumbprints: ["a031c46782e6e6c662c2c87c76da9aa62ccabd8e"],
+      thumbprints: ["6938fd4d98bab03faadb97b34396831e3780aea1"],
     })
 
     const condition = {
