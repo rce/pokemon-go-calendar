@@ -10,6 +10,9 @@ jobs:
     name: deploy-prod
     runs-on: ubuntu-latest
 
+    concurrency: 
+      group: deploy-prod
+
     permissions:
       id-token: write
       contents: read
